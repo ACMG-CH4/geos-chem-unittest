@@ -116,6 +116,17 @@ Clear-sky flux?         : F
 All-sky flux?           : F
 Radiation Timestep [sec]: 10800
 ------------------------+------------------------------------------------------
+%%% CH4 MENU %%%        :
+Use GOSAT obs operator? : F
+Use TROPOMI obs operator: F
+Use TCCON obs operator? : F
+Do analytical inversion?: F
+ => Emiss perturbation  : pertpert
+ => Current cluster #   : clustnumclustnum
+ => Apply emis scaling? : F
+ => Apply OH scaling?   : F
+ => Apply wetland scal? : F 
+------------------------+------------------------------------------------------
 %%% OBSPACK MENU %%%    :
 Turn on ObsPack diag?   : F
 Quiet logfile output    : F

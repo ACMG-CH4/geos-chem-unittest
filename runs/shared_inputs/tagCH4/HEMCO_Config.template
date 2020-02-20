@@ -5,7 +5,7 @@
 #
 # !MODULE: HEMCO_Config.rc
 #
-qfed# !DESCRIPTION: Contains configuration information for HEMCO. Define the
+# !DESCRIPTION: Contains configuration information for HEMCO. Define the
 #  emissions inventories and corresponding file paths here. Entire
 #  configuration files can be inserted into this configuration file with
 #  an '>>>include' statement, e.g. '>>>include HEMCO\_Config\_test.rc'
@@ -65,9 +65,10 @@ Warnings:                    {WARNINGS}
     --> GC_BCs                 :       false
 # ----- REGIONAL INVENTORIES ----------------
     --> GEPA                   :       true
-    --> CanMex                 :       true
+    --> CanMex                 :       false
     --> MIX                    :       false
 # ----- GLOBAL INVENTORIES ------------------
+    --> GFEI                   :       true
     --> EDGARv432              :       true
     --> QFED2                  :       true
     --> JPL_WETCHARTS          :       true
@@ -303,6 +304,20 @@ Warnings:                    {WARNINGS}
 0 MIX_CH4_AGR $ROOT/MIX/v2015-03/MIX_Asia_CH4.generic.025x025.nc   CH4_AGRICULTURE 2008/1-12/1/0 C xy kg/m2/s CH4 1006 1 40
 )))MIX
 
+#==============================================================================
+# --- Global Fuel Exploitation Inventory (Scarpelli et al., 2020) ---
+#
+# This inventory will replace EDGAR (oil, gas, & coal), GEPA (oil, gas, & coal),
+# and CanMex (oil & gas); Set to hier=100
+#==============================================================================
+(((GFEI
+0 GFEI_CH4_OIL_T  $ROOT/CH4/v2020-02/GFEI_1902/Global_Fuel_Exploitation_Inventory_Oil_All_forInv.nc  emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4_OIL  -  1 100
+0 GFEI_CH4_OIL    $ROOT/CH4/v2020-02/GFEI_1902/Global_Fuel_Exploitation_Inventory_Oil_All_forInv.nc  emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4      -  1 100
+0 GFEI_CH4_GAS_T  $ROOT/CH4/v2020-02/GFEI_1902/Global_Fuel_Exploitation_Inventory_Gas_All_forInv.nc  emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4_GAS  -  2 100
+0 GFEI_CH4_GAS    $ROOT/CH4/v2020-02/GFEI_1902/Global_Fuel_Exploitation_Inventory_Gas_All_forInv.nc  emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4      -  2 100
+0 GFEI_CH4_COAL_T $ROOT/CH4/v2020-02/GFEI_1902/Global_Fuel_Exploitation_Inventory_Coal_forInv.nc     emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4_COAL -  3 100
+0 GFEI_CH4_COAL   $ROOT/CH4/v2020-02/GFEI_1902/Global_Fuel_Exploitation_Inventory_Coal_forInv.nc     emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4      -  3 100
+)))GFEI
 
 #==============================================================================
 # --- EDGAR v4.3.2 emissions, various sectors ---
@@ -313,8 +328,8 @@ Warnings:                    {WARNINGS}
 #==============================================================================
 (((EDGARv432
 ### Oil and Gas ###
-0 CH4_OILGAS_T           $ROOT/CH4/v2017-10/EDGARv432/EDGAR_v432_CH4_OilGas.generic.01x01.nc                                           emi_ch4 1970-2012/1/1/0 C xy molec/cm2/s CH4_OIL -  1 1
-0 CH4_OILGAS             $ROOT/CH4/v2017-10/EDGARv432/EDGAR_v432_CH4_OilGas.generic.01x01.nc                                           emi_ch4 1970-2012/1/1/0 C xy molec/cm2/s CH4     -  1 1
+0 CH4_OILGAS_T           $ROOT/CH4/v2017-10/EDGARv432/EDGAR_v432_CH4_OilGas.generic.01x01.nc                                           emi_ch4 1970-2012/1/1/0 C xy molec/cm2/s CH4_OIL -  1/2 1
+0 CH4_OILGAS             $ROOT/CH4/v2017-10/EDGARv432/EDGAR_v432_CH4_OilGas.generic.01x01.nc                                           emi_ch4 1970-2012/1/1/0 C xy molec/cm2/s CH4     -  1/2 1
 
 ### Coal ###
 0 CH4_COAL_T             $ROOT/CH4/v2017-10/EDGARv432/EDGAR_v432_CH4_Coal.generic.01x01.nc                                             emi_ch4 1970-2012/1/1/0 C xy molec/cm2/s CH4_COL -  3 1
@@ -380,10 +395,11 @@ Warnings:                    {WARNINGS}
 # been found to be buggy for CH4 (same emissions on each day).
 #==============================================================================
 (((QFED2
-#0 QFED_CH4_T  $ROOT/QFED/v2018-07/$YYYY/$MM/qfed2.emis_ch4.006.$YYYY$MM$DD.nc4   biomass 2000-2017/1-12/1-31/0 C xy kg/m2/s     CH4_BBN 75 9 2
-#0 QFED_CH     $ROOT/QFED/v2018-079/$YYYY/$MM/qfed2.emis_ch4.006.$YYYY$MM$DD.nc4  biomass 2000-2017/1-12/1-31/0 C xy kg/m2/s     CH4     75 9 2
-0 QFED_CH4_T   $ROOT/CH4/v2017-10/QFED/QFEDv2.4r8.emis_ch4.$YYYY.nc              emi_ch4 2009-2015/1-12/1-31/0 C xy molec/cm2/s CH4_BBN -  9 2
-0 QFED_CH4     $ROOT/CH4/v2017-10/QFED/QFEDv2.4r8.emis_ch4.$YYYY.nc              emi_ch4 2009-2015/1-12/1-31/0 C xy molec/cm2/s CH4     -  9 2
+#0 QFED_CH4_T   $ROOT/CH4/v2017-10/QFED/QFEDv2.4r8.emis_ch4.$YYYY.nc              emi_ch4 2009-2015/1-12/1-31/0 C xy molec/cm2/s CH4_BBN -  9 2
+#0 QFED_CH4     $ROOT/CH4/v2017-10/QFED/QFEDv2.4r8.emis_ch4.$YYYY.nc              emi_ch4 2009-2015/1-12/1-31/0 C xy molec/cm2/s CH4     -  9 2
+0 QFED_CH4_T   $ROOT/CH4/v2020-02/GFED/GFED4_CH4_FIRE_$YYYY.nc emi_ch4 2009-2017/1-12/1-31/0 C xy molec/cm2/s CH4_BBN -  9 2
+0 QFED_CH4     $ROOT/CH4/v2020-02/GFED/GFED4_CH4_FIRE_$YYYY.nc emi_ch4 2009-2017/1-12/1-31/0 C xy molec/cm2/s CH4     -  9 2
+
 )))QFED2
 
 #==============================================================================
@@ -395,16 +411,18 @@ Warnings:                    {WARNINGS}
 #   Kirschke et al., Nature Geoscience, 6, 2013.
 #==============================================================================
 (((JPL_WETCHARTS
-0 JPLW_CH4_T $ROOT/CH4/v2017-10/JPL_WetCharts/JPL_WetCharts_$YYYY.Ensemble_Mean.1x1.nc emi_ch4 2009-2015/1-12/1/0 C xy molec/cm2/s CH4_WTL 2 10 1
-0 JPLW_CH4   $ROOT/CH4/v2017-10/JPL_WetCharts/JPL_WetCharts_$YYYY.Ensemble_Mean.1x1.nc emi_ch4 2009-2015/1-12/1/0 C xy molec/cm2/s CH4     2 10 1
+0 JPLW_CH4_T $ROOT/CH4/v2020-02/JPL_WetCharts/JPL_WetCharts_$YYYY.Ensemble_Mean.0.5x0.5.nc emi_ch4 2009-2017/1-12/1/0 C xy molec/cm2/s CH4_WTL 2 10 1
+0 JPLW_CH4   $ROOT/CH4/v2020-02/JPL_WetCharts/JPL_WetCharts_$YYYY.Ensemble_Mean.0.5x0.5.nc emi_ch4 2009-2017/1-12/1/0 C xy molec/cm2/s CH4     2 10 1
 )))JPL_WETCHARTS
 
 #==============================================================================
 # --- Geological Seeps (Maasakkers et al., in prep) ---
 #==============================================================================
 (((SEEPS
-0 CH4_SEEPS_T $ROOT/CH4/v2017-10/Seeps/Maasakkers_Geological_Seeps.01x01.nc emi_ch4 2012/1/1/0 C xy molec/cm2/s CH4_SEE - 11 1
-0 CH4_SEEPS   $ROOT/CH4/v2017-10/Seeps/Maasakkers_Geological_Seeps.01x01.nc emi_ch4 2012/1/1/0 C xy molec/cm2/s CH4     - 11 1
+#0 CH4_SEEPS_T $ROOT/CH4/v2017-10/Seeps/Maasakkers_Geological_Seeps.01x01.nc emi_ch4 2012/1/1/0 C xy molec/cm2/s CH4_SEE - 11 1
+#0 CH4_SEEPS   $ROOT/CH4/v2017-10/Seeps/Maasakkers_Geological_Seeps.01x01.nc emi_ch4 2012/1/1/0 C xy molec/cm2/s CH4     - 11 1
+0 CH4_SEEPS_T $ROOT/CH4/v2020-02/Seeps/Etiope_CH4GeologicalEmis.1x1.nc emi_ch4 2012/1/1/0 C xy kg/m2/s CH4_SEE - 11 1
+0 CH4_SEEPS   $ROOT/CH4/v2020-02/Seeps/Etiope_CH4GeologicalEmis.1x1.nc emi_ch4 2012/1/1/0 C xy kg/m2/s CH4     - 11 1
 )))SEEPS
 
 #==============================================================================
@@ -693,7 +711,8 @@ Warnings:                    {WARNINGS}
 * GLOBAL_OH  $ROOT/OH/v2014-09/v5-07-08/OH_3Dglobal.geos5.47L.4x5.nc OH           1985/1-12/1/0 C xyz kg/m3 * - 1 1
 )))GLOBAL_OH
 (((GLOBAL_CL
-* GLOBAL_Cl  $ROOT/CH4/v2017-10/Cl_Sherwen_2016b_ACP.4x5.nc          IJ_AVG_S__Cl 2005/1-12/1/0 C xyz ppbv  * - 1 1
+#* GLOBAL_Cl  $ROOT/CH4/v2017-10/Cl_Sherwen_2016b_ACP.4x5.nc             IJ_AVG_S__Cl 2005/1-12/1/0 C xyz ppbv  * - 1 1
+* GLOBAL_Cl  $ROOT/CH4/v2020-02/Cl/Cl_XuanWang_2019_ACP.4x5.nc          IJ_AVG_S__Cl 2005/1-12/1/0 C xyz ppbv  * - 1 1
 )))GLOBAL_CL
 )))CHEMISTRY_INPUT
 
@@ -864,6 +883,23 @@ Warnings:                    {WARNINGS}
 * XLAI71 $ROOT/Yuan_XLAI/v2019-03/Yuan_proc_MODIS_XLAI.025x025.$YYYY.nc XLAI71 2005-2016/1-12/1-31/0 I xy cm2/cm2 * - 1 1
 * XLAI72 $ROOT/Yuan_XLAI/v2019-03/Yuan_proc_MODIS_XLAI.025x025.$YYYY.nc XLAI72 2005-2016/1-12/1-31/0 I xy cm2/cm2 * - 1 1
 )))YUAN_MODIS_LAI
+
+#==============================================================================
+# --- Clusters for analytical inversion ---
+#==============================================================================
+# Cluster file used by J.D. Maasakkers et al. (2019)
+#* CH4_CLUSTERS Clusters_45_July.nc Clusters 2009/1/1/0 C xy 1 * - 1 1 
+
+# Cluster files used Y. Zhang et al. (2020)
+* CH4_CLUSTERS         $ROOT/CH4/v2020-02/Clusters/Clusters_nonwetlands.nc Clusters 2009/1/1/0 C xy 1 * - 1 1 
+* CH4_WETLAND_CLUSTERS $ROOT/CH4/v2020-02/Clusters/Clusters_wetlands.nc Clusters 2009/1/1/0 C xy 1 * - 1 1
+
+#==============================================================================
+# --- Scale factors for posterior run ---
+#==============================================================================
+* EMIS_SF    $ROOT/CH4/v2020-02/YZhang_SFs/Post_SF_Nonwetland.nc SF_Nonwetland 2000/1/1/0         C xy 1 * - 1 1
+* WETLAND_SF $ROOT/CH4/v2020-02/YZhang_SFs/Post_SF_Wetland.nc    SF_Wetland    2010-2017/1-12/1/0 E xy 1 * - 1 1
+* OH_SF      $ROOT/CH4/v2020-02/YZhang_SFs/Post_SF_OH.nc         SF_OH         2010-2017/1/1/0    E xy 1 * - 1 1
 
 ### END SECTION BASE EMISSIONS ###
 

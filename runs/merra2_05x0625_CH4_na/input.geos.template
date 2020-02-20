@@ -109,7 +109,9 @@ Use TCCON obs operator? : F
 Do analytical inversion?: F
  => Emiss perturbation  : pertpert
  => Current cluster #   : clustnumclustnum
-Apply emis scale factors: F
+ => Apply emis scaling? : F
+ => Apply OH scaling?   : F
+ => Apply wetland scal? : F 
 ------------------------+------------------------------------------------------
 %%% OBSPACK MENU %%%    :
 Turn on ObsPack diag?   : F
