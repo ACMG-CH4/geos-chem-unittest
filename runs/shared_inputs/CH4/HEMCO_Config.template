@@ -27,7 +27,7 @@
 ### BEGIN SECTION SETTINGS
 ###############################################################################
 
-ROOT:                        {DATA_ROOT}/HEMCO
+ROOT:                        /n/seasasfs02/CH4_Inversion/HEMCO
 METDIR:                      {DATA_ROOT}/GEOS_{GRID_DIR}/{MET_DIR}
 Logfile:                     HEMCO.log
 DiagnFile:                   HEMCO_Diagn.rc
@@ -240,9 +240,9 @@ Warnings:                    {WARNINGS}
 # and CanMex (oil & gas); Set to hier=100
 #==============================================================================
 (((GFEI
-0 GFEI_CH4_OIL  $ROOT/CH4/v2020-02/GFEI_1902/Global_Fuel_Exploitation_Inventory_Oil_All_forInv.nc  emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4 -  1 100
-0 GFEI_CH4_GAS  $ROOT/CH4/v2020-02/GFEI_1902/Global_Fuel_Exploitation_Inventory_Gas_All_forInv.nc  emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4 -  2 100
-0 GFEI_CH4_COAL $ROOT/CH4/v2020-02/GFEI_1902/Global_Fuel_Exploitation_Inventory_Coal_forInv.nc     emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4 -  3 100
+0 GFEI_CH4_OIL  $ROOT/CH4/v2020-02/GFEI/Global_Fuel_Exploitation_Inventory_Oil_All_forInv.nc  emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4 -  1 100
+0 GFEI_CH4_GAS  $ROOT/CH4/v2020-02/GFEI/Global_Fuel_Exploitation_Inventory_Gas_All_forInv.nc  emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4 -  2 100
+0 GFEI_CH4_COAL $ROOT/CH4/v2020-02/GFEI/Global_Fuel_Exploitation_Inventory_Coal_forInv.nc     emis_ch4 2012/1/1/0 C xy molec/cm2/s CH4 -  3 100
 )))GFEI
 
 #==============================================================================
@@ -777,18 +777,18 @@ Warnings:                    {WARNINGS}
 # --- Clusters for analytical inversion ---
 #==============================================================================
 # Cluster file used by J.D. Maasakkers et al. (2019)
-#* CH4_CLUSTERS Clusters_45_July.nc Clusters 2009/1/1/0 C xy 1 * - 1 1 
+#* CH4_CLUSTERS /n/seasasfs02/CH4_Inversion/InputData/ClusterFiles/JDMaasakkers_Clusters/Clusters_45_July.nc Clusters 2009/1/1/0 C xy 1 * - 1 1 
 
 # Cluster files used Y. Zhang et al. (2020)
-* CH4_CLUSTERS         $ROOT/CH4/v2020-02/Clusters/Clusters_nonwetlands.nc Clusters 2009/1/1/0 C xy 1 * - 1 1 
-* CH4_WETLAND_CLUSTERS $ROOT/CH4/v2020-02/Clusters/Clusters_wetlands.nc Clusters 2009/1/1/0 C xy 1 * - 1 1
+* CH4_CLUSTERS         /n/seasasfs02/CH4_Inversion/InputData/ClusterFiles/YZhang_Clusters/Clusters_nonwetlands.nc Clusters 2009/1/1/0 C xy 1 * - 1 1 
+* CH4_WETLAND_CLUSTERS /n/seasasfs02/CH4_Inversion/InputData/ClusterFiles/YZhang_Clusters/Clusters_wetlands.nc Clusters 2009/1/1/0 C xy 1 * - 1 1
 
 #==============================================================================
 # --- Scale factors for posterior run ---
 #==============================================================================
-* EMIS_SF    $ROOT/CH4/v2020-02/YZhang_SFs/Post_SF_Nonwetland.nc SF_Nonwetland 2000/1/1/0         C xy 1 * - 1 1
-* WETLAND_SF $ROOT/CH4/v2020-02/YZhang_SFs/Post_SF_Wetland.nc    SF_Wetland    2010-2017/1-12/1/0 E xy 1 * - 1 1
-* OH_SF      $ROOT/CH4/v2020-02/YZhang_SFs/Post_SF_OH.nc         SF_OH         2010-2017/1/1/0    E xy 1 * - 1 1
+* EMIS_SF    /n/seasasfs02/CH4_Inversion/InputData/Posterior/YZhang_SFs/Post_SF_Nonwetland.nc SF_Nonwetland 2000/1/1/0         C xy 1 * - 1 1
+* WETLAND_SF /n/seasasfs02/CH4_Inversion/InputData/Posterior/YZhang_SFs/Post_SF_Wetland.nc    SF_Wetland    2010-2017/1-12/1/0 E xy 1 * - 1 1
+* OH_SF      /n/seasasfs02/CH4_Inversion/InputData/Posterior/YZhang_SFs/Post_SF_OH.nc         SF_OH         2010-2017/1/1/0    E xy 1 * - 1 1
 
 ### END SECTION BASE EMISSIONS ###
 
