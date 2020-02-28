@@ -27,7 +27,7 @@
 ### BEGIN SECTION SETTINGS
 ###############################################################################
 
-ROOT:                        /n/seasasfs02/CH4_inversion/HEMCO
+ROOT:                        /n/seasasfs02/CH4_inversion/InputData/HEMCO
 METDIR:                      {DATA_ROOT}/GEOS_{GRID_DIR}/{MET_DIR}
 Logfile:                     HEMCO.log
 DiagnFile:                   HEMCO_Diagn.rc
