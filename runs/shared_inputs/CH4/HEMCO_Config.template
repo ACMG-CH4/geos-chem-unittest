@@ -63,7 +63,8 @@ Warnings:                    {WARNINGS}
 # ----- GLOBAL INVENTORIES ------------------
     --> GFEI                   :       true
     --> EDGARv432              :       true
-    --> QFED2                  :       true
+    --> QFED2                  :       false
+    --> UPDATED_GFED4          :       true
     --> JPL_WETCHARTS          :       true
     --> SEEPS                  :       true
     --> LAKES                  :       false
@@ -298,28 +299,33 @@ Warnings:                    {WARNINGS}
 # been found to be buggy for CH4 (same emissions on each day).
 #==============================================================================
 (((QFED2
-#0 QFED_CH4   $ROOT/CH4/v2017-10/QFED/QFEDv2.4r8.emis_ch4.$YYYY.nc              emi_ch4 2009-2015/1-12/1-31/0 C xy molec/cm2/s CH4 -  9 2
-0 QFED_CH4   $ROOT/CH4/v2020-02/GFED/GFED4_CH4_FIRE_$YYYY.nc emi_ch4 2009-2017/1-12/1-31/0 C xy molec/cm2/s CH4 -  9 2
+0 QFED_CH4   $ROOT/CH4/v2017-10/QFED/QFEDv2.4r8.emis_ch4.$YYYY.nc              emi_ch4 2009-2015/1-12/1-31/0 C xy molec/cm2/s CH4 -  9 2
 )))QFED2
+
+#==============================================================================
+# --- Updated GFED4 biomass burning ---
+#
+# Emissions through 2018 obtained from Yuzhong Zhang
+#==============================================================================
+(((UPDATED_GFED4
+0 UPDATED_GFED4_CH4    $ROOT/CH4/v2020-04/GFED/GFED4_CH4_FIRE_$YYYY.nc emi_ch4 2009-2018/1-12/1-31/0 C xy molec/cm2/s CH4 -  9 2
+)))UPDATED_GFED4
 
 #==============================================================================
 # --- JPL WetCHARTs v1.0 (Bloom et al., https://doi.org/10.3334/ORNLDAAC/1502) ---
 #
 # NOTES:
 # - Use either this inventory or the wetland extension -- not both!
-# - Scale JPL wetland emissions by 9% to better match values in
-#   Kirschke et al., Nature Geoscience, 6, 2013.
 #==============================================================================
 (((JPL_WETCHARTS
-0 JPLW_CH4  $ROOT/CH4/v2020-02/JPL_WetCharts/JPL_WetCharts_$YYYY.Ensemble_Mean.0.5x0.5.nc emi_ch4 2009-2017/1-12/1/0 C xy molec/cm2/s CH4 2 10 1
+0 JPLW_CH4   $ROOT/CH4/v2020-04/JPL_WetCharts/JPL_WetCharts_$YYYY.Ensemble_Mean.0.5x0.5.nc emi_ch4 2009-2017/1-12/1/0 C xy molec/cm2/s CH4 - 10 1
 )))JPL_WETCHARTS
 
 #==============================================================================
 # --- Geological Seeps (Maasakkers et al., in prep) ---
 #==============================================================================
 (((SEEPS
-#0 CH4_SEEPS $ROOT/CH4/v2017-10/Seeps/Maasakkers_Geological_Seeps.01x01.nc emi_ch4 2012/1/1/0 C xy molec/cm2/s CH4 - 11 1
-0 CH4_SEEPS $ROOT/CH4/v2020-02/Seeps/Etiope_CH4GeologicalEmis.1x1.nc emi_ch4 2012/1/1/0 C xy kg/m2/s CH4 - 11 1
+0 CH4_SEEPS $ROOT/CH4/v2020-04/Seeps/Etiope_CH4GeologicalEmis_ScaledToHmiel.1x1.nc emi_ch4 2012/1/1/0 C xy kg/m2/s CH4 - 11 1
 )))SEEPS
 
 #==============================================================================
@@ -600,7 +606,6 @@ Warnings:                    {WARNINGS}
 * GLOBAL_OH  $ROOT/OH/v2014-09/v5-07-08/OH_3Dglobal.geos5.47L.4x5.nc OH           1985/1-12/1/0 C xyz kg/m3 * - 1 1
 )))GLOBAL_OH
 (((GLOBAL_CL
-#* GLOBAL_Cl  $ROOT/CH4/v2017-10/Cl_Sherwen_2016b_ACP.4x5.nc          IJ_AVG_S__Cl 2005/1-12/1/0 C xyz ppbv  * - 1 1
 * GLOBAL_Cl  $ROOT/CH4/v2020-02/Cl/Cl_XuanWang_2019_ACP.4x5.nc          IJ_AVG_S__Cl 2005/1-12/1/0 C xyz ppbv  * - 1 1
 )))GLOBAL_CL
 )))CHEMISTRY_INPUT
@@ -806,16 +811,6 @@ Warnings:                    {WARNINGS}
 # Multiply soil absorption by -1 to get a "negative" flux.
 #==============================================================================
 1 NEGATIVE       -1.0 - - - xy 1 1
-
-#==============================================================================
-# --- JPL WetCHARTs scale factors ---
-#
-# Scale JPL wetland emissions by 9% to better match values in
-#   Kirschke et al., Nature Geoscience, 6, 2013.
-#==============================================================================
-(((JPL_WETCHARTS
-2 SCALE_WETLANDS  1.09 - - - xy 1 1
-)))JPL_WETCHARTS
 
 #==============================================================================
 # --- Seasonal scaling factors ----
